@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-with open('log_CHD_model.pkl', 'rb') as f:
-    model = pickle.load(f)
+with open('log_CHD_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 with open('scaler_1.pkl', 'rb') as f:
     scaler = pickle.load(f)
 
