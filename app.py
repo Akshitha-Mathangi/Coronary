@@ -66,21 +66,21 @@ if st.button('Predict'):
         glucose
     ]],
     columns=[
-        male,
-        age,
-    	education,
-        CurrentSmoker,
-        cigsPerDay,
-        BPMeds,
-        prevalentStroke,
-        prevalentHyp,
-        diabetes,
-        totChol,
-        sysBP,
-        diaBP,
-        BMI,
-        heartRate,
-        glucose
+        'male',
+        'age',
+    	'education',
+        'currentSmoker',
+        'cigsPerDay',
+        'BPMeds',
+        'prevalentStroke',
+        'prevalentHyp',
+        'diabetes',
+        'totChol',
+        'sysBP',
+        'diaBP',
+        'BMI',
+        'heartRate',
+        'glucose'
 
     ])
      # Scale
