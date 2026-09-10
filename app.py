@@ -1,37 +1,27 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pickle
+import pickle 
 
-with open('log_CHD_model.pkl', 'rb') as file:
-    model = pickle.load(file)
-with open('scaler_1.pkl', 'rb') as f:
-    scaler = pickle.load(f)
-
+with open('log_CHD_model.pkl','rb') as file:
+    model=pickle.load(file)
+with open('scaler_log.pkl','rb') as f:
+    scaler=pickle.load(f)
 st.set_page_config(
     page_title='CHD',
-    page_icon="🩺",
+    page_icon="🫀",
     layout='centered'
 )
-
 st.title("Coronary Heart Disease Prediction")
-st.write("Enter Patient's Details below: ")
+st.write("Enter patient's Details Below: ")
 
 st.markdown('---')
-
-# User Inputs
-male = st.selectbox('Gender', [0, 1], 
-                    format_func=lambda x: 'Female' if x==0 else 'Male')
-age = st.number_input('Age', 18, 100, 45)
-education = st.selectbox("Education Level",
-                         [1, 2, 3, 4],
-                         help = '1=Primary School, 2=High School, 3=College, 4=PG')
-CurrentSmoker = st.selectbox('Current Smoker', [0, 1])
-cigsPerDay = st.number_input('Cigarette Per Day',
-                             min_value=0,
-                             max_value=100,
-                             value=0)
-BPMeds = st.selectbox("BP Medication", [0, 1])
+male=st.selectbox('Gender',[0,1],format_func=lambda x:'female' if x==0 else 'Male')
+age=st.number_input('Age',18,100, 45)
+education=st.selectbox("Education level",[1,2,3,4],help='1=Primary School, 2=High School, 3=College,4=Post graduation')
+CurrentSmoker=st.selectbox('Current Smoker',[0,1])
+cigsPerDay=st.number_input('Cigretes per Day',0,50,0)
+BPMeds=st.selectbox("BP Medication",[0,1])
 prevalentStroke = st.selectbox("Previous Stroke", [0, 1])
 prevalentHyp = st.selectbox("Hypertension", [0, 1])
 diabetes = st.selectbox("Diabetes", [0, 1])
@@ -48,7 +38,7 @@ glucose = st.number_input("Glucose", 40, 500, 80)
 
 # Prediction
 if st.button('Predict'):
-    input_data=pd.DataFrame([[
+    input_data = pd.DataFrame([[
         male,
         age,
         education,
@@ -68,7 +58,7 @@ if st.button('Predict'):
     columns=[
         'male',
         'age',
-    	'education',
+        'education',
         'currentSmoker',
         'cigsPerDay',
         'BPMeds',
@@ -81,9 +71,8 @@ if st.button('Predict'):
         'BMI',
         'heartRate',
         'glucose'
-
     ])
-     # Scale
+    # Scale
     input_scaled = scaler.transform(input_data)
     prediction = model.predict(input_scaled)
     probability = model.predict_proba(input_scaled)[0][1]
@@ -92,10 +81,10 @@ if st.button('Predict'):
 
     if prediction[0] == 1:
         st.error("High Risk of Coronary Heart Disease")
-        # st.snow()
+        st.snow()
     else:
         st.success("Low risk of Coronary Heart Disease")
         st.balloons()
 
-    st.write(f"*Risk Probability : {probability*100:.2f}%*")
+    st.write(f"*Risk Probability : {probability*100:.2f}%**")
     
